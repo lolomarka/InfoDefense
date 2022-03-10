@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings;
 
 namespace InfoDefense.Algorithms
 {
@@ -43,23 +44,30 @@ namespace InfoDefense.Algorithms
             _Ky = BigInteger.ModPow(_B, _Y, _N);
         }
 
-        public string Encrypt(string message)
+        public (string,List<BigInteger>) Encrypt(string message)
         {
+            var codes = Encoding.UTF32.GetBytes(message);
             string res = "";
-            foreach (var ch in message)
+            List<BigInteger> list = new List<BigInteger>();
+
+            foreach (var code in codes)
             {
-                res += (char)(ch + _Kx);
+                var cryptedCode = BigInteger.Pow(_Kx, code);
+                res += cryptedCode.ToString();
+                list.Add(cryptedCode);
             }
 
-            return res;
+            return (res,list);
         }
 
-        public string Decrypt(string message)
+        public string Decrypt(List<BigInteger> cryptedMessage)
         {
             string res = "";
-            foreach (var ch in message)
+
+            foreach (var code in cryptedMessage)
             {
-                res += (char)(ch - _Ky);
+                var decryptedCode = BigInteger.Log(code, (double)_Kx);
+                res += Convert.ToChar((int)Math.Round(decryptedCode));
             }
 
             return res;
