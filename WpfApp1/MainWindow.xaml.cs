@@ -1,4 +1,5 @@
 ﻿using InfoDefence.Pages;
+
 using System.Windows;
 
 namespace InfoDefence
@@ -25,6 +26,13 @@ namespace InfoDefence
             while (MainFrame.CanGoBack)
                 MainFrame.RemoveBackEntry();
             MainFrame.Content = new RSAPage();
+        }
+
+        private void DeffieHellmanButton_Click(object sender, RoutedEventArgs e)
+        {
+            while (MainFrame.CanGoBack)
+                MainFrame.RemoveBackEntry();
+            MainFrame.Content = new DeffieHellmanPage();
         }
     }
 }

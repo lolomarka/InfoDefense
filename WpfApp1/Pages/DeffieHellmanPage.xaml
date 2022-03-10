@@ -1,0 +1,62 @@
+﻿<Page x:Class="InfoDefence.Pages.DeffieHellmanPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InfoDefence.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DeffieHellmanPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <DockPanel >
+                <TextBlock Text="q"/>
+                <TextBox x:Name="QInputTextBox" TextChanged="QInputTextBox_TextChanged" />
+            </DockPanel>
+            <DockPanel >
+                <TextBlock Text="n"/>
+                <TextBox x:Name="NInputTextBox" TextChanged="NInputTextBox_TextChanged"/>
+            </DockPanel>
+            <DockPanel >
+                <TextBlock Text="x"/>
+                <TextBox x:Name="XInputTextBox" IsEnabled="False"/>
+            </DockPanel>
+            <DockPanel >
+                <TextBlock Text="A = qx mod n"/>
+                <TextBox x:Name="AInputTextBox" IsEnabled="False"/>
+            </DockPanel>
+            <DockPanel >
+                <TextBlock Text="y"/>
+                <TextBox x:Name="YInputTextBox" IsEnabled="False"/>
+            </DockPanel>
+            <DockPanel >
+                <TextBlock Text="B = qy mod n"/>
+                <TextBox x:Name="BInputTextBox" IsEnabled="False"/>
+            </DockPanel>
+            <DockPanel >
+                <TextBlock Text="Kx = Bx mod n"/>
+                <TextBox x:Name="KxInputTextBox" IsEnabled="False"/>
+            </DockPanel>
+            <DockPanel >
+                <TextBlock Text="Ky = Ay mod n"/>
+                <TextBox x:Name="KyInputTextBox" IsEnabled="False"/>
+            </DockPanel>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <TextBlock Text="Исходный текст"/>
+            <TextBox Grid.Column="1" x:Name="InputTextBox"  Height="100" Text="ТЕСТ" TextWrapping="Wrap"/>
+            <Button x:Name="EncryptButton" Content="Шифровать" Click="EncryptButton_Click"/>
+            <TextBlock Text="Зашифрованный текст"/>
+            <TextBox Grid.Column="1" x:Name="EncryptedTextBox" Height="100" TextWrapping="Wrap" />
+            <Button x:Name="DecryptButton" Content="Расшифровать" Click="DecryptButton_Click"/>
+            <TextBlock Text="Расшифрованный текст"/>
+            <TextBox x:Name="DecryptedTextBox"  Height="Auto" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</Page>
