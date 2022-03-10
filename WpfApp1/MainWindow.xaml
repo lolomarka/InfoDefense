@@ -1,0 +1,20 @@
+﻿<Window x:Class="InfoDefence.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InfoDefence"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button x:Name="WheatstoneAlgButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Wheatstone" Click="WheatstoneAlgButton_Click"/>
+            <Button x:Name="RSAButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="RSA" Click="RSAButton_Click"/>
+        </StackPanel>
+        <Frame Grid.Row="1" x:Name="MainFrame"/>
+    </Grid>
+</Window>
