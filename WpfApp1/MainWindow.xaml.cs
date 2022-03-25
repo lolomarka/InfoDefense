@@ -34,5 +34,12 @@ namespace InfoDefence
                 MainFrame.RemoveBackEntry();
             MainFrame.Content = new DeffieHellmanPage();
         }
+
+        private void BlockButton_Click(object sender, RoutedEventArgs e)
+        {
+            while (MainFrame.CanGoBack)
+                MainFrame.RemoveBackEntry();
+            MainFrame.Content = new InfoDefense.Pages.BlockPage();
+        }
     }
 }

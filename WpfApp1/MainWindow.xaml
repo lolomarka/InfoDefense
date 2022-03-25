@@ -15,6 +15,7 @@
             <Button x:Name="WheatstoneAlgButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Wheatstone" Click="WheatstoneAlgButton_Click"/>
             <Button x:Name="RSAButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="RSA" Click="RSAButton_Click"/>
             <Button x:Name="DeffieHellmanButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="DeffieHellman" Click="DeffieHellmanButton_Click"/>
+            <Button x:Name="BlockButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Block" Click="BlockButton_Click"/>
         </StackPanel>
         <Frame Grid.Row="1" x:Name="MainFrame"/>
     </Grid>
