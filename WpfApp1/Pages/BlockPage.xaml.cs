@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,19 @@ namespace InfoDefense.Pages
         public BlockPage()
         {
             InitializeComponent();
+        }
+
+        private void Path_Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+
+            dialog.Multiselect = true; 
+
+            if(dialog.ShowDialog() == true)
+            {
+                Path_TextBlock.Text = dialog.FileName;
+            }
+
         }
     }
 }

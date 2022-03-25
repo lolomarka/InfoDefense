@@ -22,20 +22,32 @@
 
         <DockPanel Grid.Row="0" Grid.Column="1">
             <TextBox x:Name="Path_TextBlock" DockPanel.Dock="Top"  Text="Path"></TextBox>
-            <Button Content="GetPath" x:Name="Path_Button" DockPanel.Dock="Top"/>
+            <Button Content="GetPath" x:Name="Path_Button" DockPanel.Dock="Top" Click="Path_Button_Click"/>
             <DockPanel DockPanel.Dock="Bottom">
                 <Button x:Name="ReadFileButton" Content="ReadFile" DockPanel.Dock="Left"/>
                 <Button x:Name="EncryptButton" Content="Encrypt" DockPanel.Dock="Top" Height="55"/>
                 <Button x:Name="DecryptButton" Content="Decrypt" DockPanel.Dock="Right"/>
             </DockPanel>
         </DockPanel>
-        <DockPanel Grid.Column="0" Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
-                <Label>
+        <DockPanel Grid.Column="0" Grid.Row="0">
+            <DockPanel>
+                <Label DockPanel.Dock="Top">
                         <TextBlock Text="Key"/>
                 </Label>
                 <TextBox x:Name="Key_TextBox" Width="240"/>
-            </StackPanel>
+            </DockPanel>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+            <TextBlock DockPanel.Dock="Top" Text="Исходный текст"/>
+            <TextBox x:Name="SourceTextBox" DockPanel.Dock="Bottom"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+            <TextBlock DockPanel.Dock="Top" Text="Зашифрованный текст"/>
+            <TextBox x:Name="EncryptedTextBox" DockPanel.Dock="Bottom"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+            <TextBlock DockPanel.Dock="Top" Text="Расшифрованный текст"/>
+            <TextBox x:Name="DecryptedTextBox" DockPanel.Dock="Bottom"/>
         </DockPanel>
     </Grid>
 </Page>
