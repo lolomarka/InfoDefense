@@ -22,11 +22,11 @@
 
         <DockPanel Grid.Row="0" Grid.Column="1">
             <TextBox x:Name="Path_TextBlock" DockPanel.Dock="Top"  Text="Path"></TextBox>
-            <Button Content="GetPath" x:Name="Path_Button" DockPanel.Dock="Top" Click="Path_Button_Click"/>
+            <!--<Button Content="GetPath" x:Name="Path_Button" DockPanel.Dock="Top" Click="Path_Button_Click"/>-->
             <DockPanel DockPanel.Dock="Bottom">
-                <Button x:Name="ReadFileButton" Content="ReadFile" DockPanel.Dock="Left"/>
-                <Button x:Name="EncryptButton" Content="Encrypt" DockPanel.Dock="Top" Height="55"/>
-                <Button x:Name="DecryptButton" Content="Decrypt" DockPanel.Dock="Right"/>
+                <Button x:Name="ReadFileButton" Content="ReadFile" DockPanel.Dock="Left" Click="ReadFileButton_Click"/>
+                <Button x:Name="EncryptButton" Content="Encrypt" DockPanel.Dock="Top" Height="55" Click="EncryptButton_Click"/>
+                <Button x:Name="DecryptButton" Content="Decrypt" DockPanel.Dock="Right" Click="DecryptButton_Click"/>
             </DockPanel>
         </DockPanel>
         <DockPanel Grid.Column="0" Grid.Row="0">
