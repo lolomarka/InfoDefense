@@ -16,6 +16,11 @@
             <Button x:Name="RSAButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="RSA" Click="RSAButton_Click"/>
             <Button x:Name="DeffieHellmanButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="DeffieHellman" Click="DeffieHellmanButton_Click"/>
             <Button x:Name="BlockButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Block" Click="BlockButton_Click"/>
+            <Button x:Name="CRCButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="CRC16" Click="CRCButton_Click"/>
+            <Button x:Name="RLEButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="RLE" Click="RLEButton_Click"/>
+            <Button x:Name="HashButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Hash" Click="HashButton_Click"/>
+            <Button x:Name="GammaButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Gamme" Click="GammaButton_Click"/>
+            
         </StackPanel>
         <Frame Grid.Row="1" x:Name="MainFrame"/>
     </Grid>

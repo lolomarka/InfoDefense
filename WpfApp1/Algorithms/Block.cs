@@ -57,6 +57,17 @@ namespace InfoDefense.Algorithms
 
             return blocks;
         }
+        public byte[] BinaryToBytes(String b)
+        {
+            var codes = new List<byte>();
+            for (var i = 0; i < b.Length; i += bitNums)
+            {
+                var code = Convert.ToInt32(b.Substring(i, bitNums), 2);
+                codes.Add((byte)code);
+            }
+
+            return codes.ToArray();
+        }
 
         string NormalizeToSize(string bBlock, int size)
         {

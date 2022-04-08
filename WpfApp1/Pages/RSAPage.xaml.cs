@@ -1,4 +1,4 @@
-﻿using InfoDefence.Algorithms;
+﻿using InfoDefense.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace InfoDefence.Pages
+namespace InfoDefense.Pages
 {
     /// <summary>
     /// Interaction logic for RSAPage.xaml

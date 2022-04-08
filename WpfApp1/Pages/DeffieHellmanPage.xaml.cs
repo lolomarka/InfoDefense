@@ -3,7 +3,7 @@ using System.Numerics;
 using System.Windows.Controls;
 using InfoDefense.Algorithms;
 
-namespace InfoDefence.Pages
+namespace InfoDefense.Pages
 {
     /// <summary>
     /// Логика взаимодействия для DeffieHellmanPage.xaml

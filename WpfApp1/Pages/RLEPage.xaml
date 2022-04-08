@@ -1,0 +1,27 @@
+﻿<Page x:Class="InfoDefense.Pages.RLEPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:InfoDefense.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RLEPage">
+
+    <Grid>
+        <TextBox x:Name="InputBox" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="1121" Margin="33,46,0,0"/>
+        <Button x:Name="RLEButton" Content="RLE compress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Margin="525,153,0,0" Click="OnRLEClick" Height="40"/>
+        <Button x:Name="HuffmanButton" Content="Huffman compress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Margin="525,334,0,0" Click="OnHuffmanClick" Height="40"/>
+        <TextBox x:Name="RLEBox" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="1121" Margin="33,226,0,0"/>
+        <TextBox x:Name="HuffmanBox" HorizontalAlignment="Left" Height="69" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="1121" Margin="33,413,0,0"/>
+        <Label Content="Input string" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,15,0,0" Width="139"/>
+        <Label Content="RLE" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,195,0,0" Width="139"/>
+        <Label Content="Huffman" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,382,0,0" Width="139"/>
+        <Label x:Name="codesLabel" Content="Codes: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,487,0,0" Width="1121" Height="69"/>
+        <Label x:Name="compressRate" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,569,0,0" Width="1121" Height="69"/>
+        <Image Source="arrow-down.png" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="42" Margin="472,153,0,0"/>
+        <Image Source="arrow-down.png" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="48" Margin="472,334,0,0"/>
+
+
+    </Grid>
+</Page>

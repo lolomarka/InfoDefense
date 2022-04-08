@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace InfoDefence.Algorithms
+namespace InfoDefense.Algorithms
 {
     public class RSA
     {

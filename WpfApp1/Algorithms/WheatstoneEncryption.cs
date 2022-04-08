@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 
 
-namespace InfoDefence.Algorithms
+namespace InfoDefense.Algorithms
 {
     public class WheatstoneEncryption
     {

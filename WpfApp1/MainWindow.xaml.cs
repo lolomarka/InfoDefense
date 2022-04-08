@@ -1,4 +1,4 @@
-﻿using InfoDefence.Pages;
+﻿using InfoDefense.Pages;
 
 using System.Windows;
 
@@ -39,7 +39,35 @@ namespace InfoDefence
         {
             while (MainFrame.CanGoBack)
                 MainFrame.RemoveBackEntry();
-            MainFrame.Content = new InfoDefense.Pages.BlockPage();
+            MainFrame.Content = new BlockPage();
+        }
+
+        private void CRCButton_Click(object sender, RoutedEventArgs e)
+        {
+            while (MainFrame.CanGoBack)
+                MainFrame.RemoveBackEntry();
+            MainFrame.Content = new CRC16Page();
+        }
+
+        private void RLEButton_Click(object sender, RoutedEventArgs e)
+        {
+            while (MainFrame.CanGoBack)
+                MainFrame.RemoveBackEntry();
+            MainFrame.Content = new RLEPage();
+        }
+
+        private void HashButton_Click(object sender, RoutedEventArgs e)
+        {
+            while (MainFrame.CanGoBack)
+                MainFrame.RemoveBackEntry();
+            MainFrame.Content = new HashPage();
+        }
+
+        private void GammaButton_Click(object sender, RoutedEventArgs e)
+        {
+            while (MainFrame.CanGoBack)
+                MainFrame.RemoveBackEntry();
+            MainFrame.Content = new GammaPage();
         }
     }
 }

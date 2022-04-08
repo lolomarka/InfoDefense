@@ -1,9 +1,9 @@
-﻿using InfoDefence.Algorithms;
+﻿using InfoDefense.Algorithms;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace InfoDefence.Pages
+namespace InfoDefense.Pages
 {
     /// <summary>
     /// Interaction logic for WheatStoneAlghoritmPage.xaml
