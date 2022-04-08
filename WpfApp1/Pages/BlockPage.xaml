@@ -43,7 +43,7 @@
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
             <TextBlock DockPanel.Dock="Top" Text="Зашифрованный текст"/>
-            <TextBox x:Name="EncryptedTextBox" DockPanel.Dock="Bottom"/>
+            <TextBox x:Name="EncryptedTextBox" DockPanel.Dock="Bottom" TextWrapping="Wrap"/>
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
             <TextBlock DockPanel.Dock="Top" Text="Расшифрованный текст"/>

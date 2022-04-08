@@ -9,86 +9,57 @@ namespace InfoDefense.Algorithms
 {
     public class Block
     {
-        static int blockLength = 64;
-        static int keyLength = 56;
-        static int bitNums = 8;
-        static int[] shifts = new int[] { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
-        static int rounds = 16;
+        const int blockLength = 64;
+        const int keyLength = 56;
+        const int bitNums = 8;
+        int[] shifts = new int[] { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
+
+        const int rounds = 16;
+
         List<string> keys = new List<string>();
 
-        public List<string> Keys { get => keys; set => keys = value; }
-
-        public Block(List<string> keys)
-        {
-            this.Keys = keys;
-        }
-
-        static string internals()
-        {
-            return $"Длина блока: {blockLength}, длина ключа {keyLength}, кол-во бит на символ: {bitNums}, величина сдвига: {shifts}, раунды: {rounds}";
-        }
-
-        string ExpandBinary(String bs)
+        string _expandBinary(string bs)
         {
             var d = bs.Length % blockLength;
-
-            bs = bs + new string('0', blockLength - d);
+            bs = bs + string.Join("", Enumerable.Repeat("0", blockLength - d).ToArray());
+            Trace.WriteLine(bs.Length);
             return bs;
         }
 
-        public String BytesToBinary(byte[] bytes)
+        public String bytesToBinary(byte[] bytes)
         {
             List<string> binaryList = new List<string>();
             foreach (var item in bytes)
             {
-                binaryList.Add(NormalizeToSize(Convert.ToString(item, 2), bitNums));
+                binaryList.Add(_normalizeToSize(Convert.ToString(item, 2), bitNums));
             }
             return string.Join("", binaryList.ToArray());
         }
 
-        List<string> BinaryToBlocks(string bs)
+        List<string> _binaryToBlocks(string bs)
         {
             var blocks = new List<string>();
-
-            for (int i = 0; i < bs.Length; i += blockLength)
+            for (var i = 0; i < bs.Length; i += blockLength)
             {
                 blocks.Add(bs.Substring(i, blockLength));
             }
-
             return blocks;
         }
-        public byte[] BinaryToBytes(String b)
-        {
-            var codes = new List<byte>();
-            for (var i = 0; i < b.Length; i += bitNums)
-            {
-                var code = Convert.ToInt32(b.Substring(i, bitNums), 2);
-                codes.Add((byte)code);
-            }
 
-            return codes.ToArray();
-        }
-
-        string NormalizeToSize(string bBlock, int size)
+        string stringToBinary(string s)
         {
-            var zerosToAdd = size - bBlock.Length;
-            return new string('0', zerosToAdd) + bBlock;
-        }
-
-        string StringToBinary(string s)
-        {
+            var codes = Encoding.ASCII.GetBytes(s);
             var binStr = "";
-
-            foreach (var code in s)
+            foreach (var code in codes)
             {
                 var binCode = Convert.ToString(code, 2);
-                binCode = NormalizeToSize(binCode, bitNums);
+                binCode = _normalizeToSize(binCode, bitNums);
                 binStr += binCode;
             }
             return binStr;
         }
 
-        public string BinaryToString(string b)
+        public String binaryToString(String b)
         {
             var codes = new List<byte>();
             for (var i = 0; i < b.Length; i += bitNums)
@@ -98,31 +69,40 @@ namespace InfoDefense.Algorithms
             }
             return Encoding.ASCII.GetString(codes.ToArray());
         }
-
-        
-
-        string XOR(string s1, string s2)
+        /// XOR
+        String _xor(String s1, String s2)
         {
             var xorString = new List<string>();
-
-            for (int i = 0; i < s1.Length; i++)
+            for (var i = 0; i < s1.Length; i++)
             {
-                var b1 = s1[i] == '1';
-                var b2 = s2[i] == '1';
+                var b1 = s1[i] == '1' ? true : false;
+                var b2 = s2[i] == '1' ? true : false;
                 xorString.Add(b1 ^ b2 ? "1" : "0");
             }
-            return string.Join("", xorString);
+            return string.Join("", xorString.ToArray());
         }
-
-        string EncryptOnce(string bInput, string bKey)
+        String _encryptOnce(String bInput, String bKey)
         {
             var bLeft = bInput.Substring(0, bInput.Length / 2);
             var bRight = bInput.Substring(bInput.Length / 2);
-
-            return bRight + XOR(bLeft, bRight);
+            return bRight + _xor(bLeft, feistel(bRight, bKey));
         }
-
-        string Permutation(string block, List<List<int>> matrix)
+        String _decryptOnce(String bInput, String bKey)
+        {
+            var bLeft = bInput.Substring(0, bInput.Length / 2);
+            var bRight = bInput.Substring(bInput.Length / 2);
+            return _xor(feistel(bLeft, bKey), bRight) + bLeft;
+        }
+        String _shiftLeft(String bKey, int shift)
+        {
+            for (var i = 0; i < shift; i++)
+            {
+                bKey = bKey + bKey[0];
+                bKey = bKey.Substring(1);
+            }
+            return bKey;
+        }
+        String permutation(string block, List<List<int>> matrix)
         {
             var sl = new List<string>();
             foreach (var row in matrix)
@@ -134,109 +114,83 @@ namespace InfoDefense.Algorithms
             }
             return string.Join("", sl.ToArray());
         }
-
-        string Feistel(string r, string key)
+        String _normalizeToSize(String bBlock, int size)
         {
-            var rExp = Permutation(r, Utils.Utils.ExpandMatrix);
-
-            var bStr = XOR(rExp, key);
-            var bVec = Utils.Utils.SplitToChunks(bStr, 6);
-
+            var zerosToAdd = size - bBlock.Length;
+            return string.Join("", Enumerable.Repeat("0", zerosToAdd).ToList().ToArray()) + bBlock;
+        }
+        String feistel(String r, String key)
+        {
+            var rExp = permutation(r, Utils.Utils.expandMatrix);
+            var bStr = _xor(rExp, key);
+            var bVec = Utils.Utils.splitToChunks(bStr, 6);
             var i = 0;
             var res = "";
-
             foreach (var bi in bVec)
             {
-                var a = Convert.ToInt32(string.Concat(bi[0], bi[bi.Length - 1]), 2);
-                var b = Convert.ToInt32(bi.Substring(1, bi.Length - 1), 2);
-
+                var a = Convert.ToInt32(bi[0].ToString() + bi[bi.Length - 1].ToString(), 2);
+                var b = Convert.ToInt32(bi.Substring(1, bi.Length - 2), 2);
                 var sMatrix = Utils.Utils.selectS(i);
-
                 var n = sMatrix[a][b];
-
-                var binN = NormalizeToSize(Convert.ToString(n, 2), 4);
-
+                var binN = _normalizeToSize(Convert.ToString(n, 2), 4);
                 res += binN;
-
                 i++;
             }
-
-            return Permutation(res, Utils.Utils.pPermutationMatrix);
+            return permutation(res, Utils.Utils.pPermutationMatrix);
         }
-
-        string DecryptOnce(string bInput, string bKey)
+        String generateKey(String bKey)
         {
-            var bLeft = bInput.Substring(0, bInput.Length / 2);
-            var bRight = bInput.Substring(bInput.Length / 2);
-
-            return bRight + XOR(bLeft, bRight);
-        }
-
-        string GenerateKey(string bKey)
-        {
-            var keyChunks = Utils.Utils.SplitToChunks(bKey, 8);
+            var keyChunks = Utils.Utils.splitToChunks(bKey, 8);
             for (var i = 0; i < keyChunks.Count; i++)
             {
-                var oneCount = Utils.Utils.CharsCount('1', keyChunks[i]);
+                var oneCount = Utils.Utils.charsCount('1', keyChunks[i]);
                 keyChunks[i] += oneCount % 2 == 0 ? '1' : '0';
             }
-            bKey = Permutation(string.Join("", keyChunks.ToArray()), Utils.Utils.KeyPermutationMatrix1);
+            bKey = permutation(string.Join("", keyChunks.ToArray()), Utils.Utils.keyPermutationMatrix1);
             return bKey;
         }
-
-        public CryptoResult Encrypt(string binaryData, string key)
+        public CryptoResult encrypt(String binaryData, String key)
         {
-            var input = ExpandBinary(binaryData);
+            var input = _expandBinary(binaryData);
             keys.Clear();
-            var blocksBinary = BinaryToBlocks(input);
+            var blocksBinary = _binaryToBlocks(input);
             for (var i = 0; i < blocksBinary.Count; i++)
             {
-                blocksBinary[i] = Permutation(blocksBinary[i], Utils.Utils.PermutationMatrix1);
+                blocksBinary[i] = permutation(blocksBinary[i], Utils.Utils.permutationMatrix1);
             }
-            var cd = GenerateKey(StringToBinary(key));
-            var cdSplit = Utils.Utils.SplitToChunks(cd, cd.Length / 2);
+            var cd = generateKey(stringToBinary(key));
+            var cdSplit = Utils.Utils.splitToChunks(cd, cd.Length / 2);
             var c = cdSplit[0];
             var d = cdSplit[1];
             for (var r = 0; r < rounds; r++)
             {
-                c = ShiftLeft(c, shifts[r]);
-                d = ShiftLeft(d, shifts[r]);
-                cd = Permutation(c + d, Utils.Utils.CDPermutationMatrix);
+                c = _shiftLeft(c, shifts[r]);
+                d = _shiftLeft(d, shifts[r]);
+                cd = permutation(c + d, Utils.Utils.cdPermutationMatrix);
                 var roundKey = cd;
                 keys.Add(roundKey);
 
                 for (var b = 0; b < blocksBinary.Count; b++)
                 {
-                    var tmpBlock = EncryptOnce(blocksBinary[b], roundKey);
-                    blocksBinary[b] = NormalizeToSize(tmpBlock, blockLength);
+                    var tmpBlock = _encryptOnce(blocksBinary[b], roundKey);
+                    blocksBinary[b] = _normalizeToSize(tmpBlock, blockLength);
                 }
             }
 
             for (var i = 0; i < blocksBinary.Count; i++)
             {
-                blocksBinary[i] = Permutation(blocksBinary[i], Utils.Utils.PermutationMatrix16);
+                blocksBinary[i] = permutation(blocksBinary[i], Utils.Utils.permutationMatrix16);
             }
-            key = BinaryToString(cd);
+            key = binaryToString(cd);
             return new CryptoResult(string.Join("", blocksBinary.ToArray()), key);
         }
 
-        private string ShiftLeft(string bKey, int shift)
+        public CryptoResult decrypt(String input, String encryptedKey)
         {
-            for (int i = 0; i < shift; i++)
-            {
-                bKey = bKey + bKey[0];
-                bKey = bKey.Substring(1);
-            }
-
-            return bKey;
-        }
-
-        public CryptoResult Decrypt(string input, string encryptedKey)
-        {
-            var blocksBinary = BinaryToBlocks(input);
+            var blocksBinary = _binaryToBlocks(input);
             for (var i = 0; i < blocksBinary.Count; i++)
             {
-                blocksBinary[i] = Permutation(blocksBinary[i], Utils.Utils.PermutationMatrix1);
+                blocksBinary[i] = permutation(blocksBinary[i], Utils.Utils.permutationMatrix1);
             }
             for (var r = 0; r < rounds; r++)
             {
@@ -244,28 +198,39 @@ namespace InfoDefense.Algorithms
 
                 for (var b = 0; b < blocksBinary.Count; b++)
                 {
-                    var tmpBlock = DecryptOnce(blocksBinary[b], roundKey);
-                    blocksBinary[b] = NormalizeToSize(tmpBlock, blockLength);
+                    var tmpBlock = _decryptOnce(blocksBinary[b], roundKey);
+                    blocksBinary[b] = _normalizeToSize(tmpBlock, blockLength);
                 }
             }
             for (var i = 0; i < blocksBinary.Count; i++)
             {
-                blocksBinary[i] = Permutation(blocksBinary[i], Utils.Utils.PermutationMatrix16);
+                blocksBinary[i] = permutation(blocksBinary[i], Utils.Utils.permutationMatrix16);
             }
             return new CryptoResult(string.Join("", blocksBinary.ToArray()), "");
+        }
+
+        public byte[] binaryToBytes(String b)
+        {
+            var codes = new List<byte>();
+            for (var i = 0; i < b.Length; i += bitNums)
+            {
+                var code = Convert.ToInt32(b.Substring(i, bitNums), 2);
+                codes.Add((byte)code);
+            }
+
+            return codes.ToArray();
         }
     }
 
     public class CryptoResult
     {
-        public CryptoResult(string value, string key)
+        public string value;
+        public string key;
+        public CryptoResult(string _value, string _key)
         {
-            this.value = value;
-            this.key = key;
+            value = _value;
+            key = _key;
         }
-
-        public string value { get; set; }
-        public string key { get; set; }
 
     }
 

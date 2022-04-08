@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using InfoDefense.Algorithms;
 
 namespace InfoDefense.Pages
 {
@@ -40,7 +31,7 @@ namespace InfoDefense.Pages
         {
             InitializeComponent();
             Key = "asdfghjoigyui";
-            Cr = new Algorithms.Block(new List<string>() { Key });
+            Cr = new Algorithms.Block();
         }
 
         private void GetHash()
@@ -60,9 +51,9 @@ namespace InfoDefense.Pages
             var pswKey = psw.Length > 7 ? psw.Substring(0, 7) : psw;
 
             byte[] codes = Encoding.Unicode.GetBytes(Key);
-            string binaryCodes = Cr.BytesToBinary(codes);
-            var res = Cr.Encrypt(binaryCodes, pswKey);
-            bytesResult = Cr.BinaryToBytes(res.value);
+            string binaryCodes = Cr.bytesToBinary(codes);
+            var res = Cr.encrypt(binaryCodes, pswKey);
+            bytesResult = Cr.binaryToBytes(res.value);
 
             Hash = ConvertToCharsCode(bytesResult);
         }

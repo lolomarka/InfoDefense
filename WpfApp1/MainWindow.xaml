@@ -19,7 +19,7 @@
             <Button x:Name="CRCButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="CRC16" Click="CRCButton_Click"/>
             <Button x:Name="RLEButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="RLE" Click="RLEButton_Click"/>
             <Button x:Name="HashButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Hash" Click="HashButton_Click"/>
-            <Button x:Name="GammaButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Gamme" Click="GammaButton_Click"/>
+            <Button x:Name="GammaButton" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Gamma" Click="GammaButton_Click"/>
             
         </StackPanel>
         <Frame Grid.Row="1" x:Name="MainFrame"/>

@@ -31,8 +31,7 @@ namespace InfoDefense.Pages
 
             InitializeComponent();
             Key_TextBox.Text = "asdfghj";
-            var keys = new List<string>() { Key_TextBox.Text };
-            crypter = new Block(keys);
+            crypter = new Block();
         }
 
         private void Path_Button_Click(object sender, RoutedEventArgs e)
@@ -63,8 +62,8 @@ namespace InfoDefense.Pages
         private void EncryptButton_Click(object sender, RoutedEventArgs e)
         {
             byte[] codes = Encoding.ASCII.GetBytes(SourceTextBox.Text);
-            string binaryCodes = crypter.BytesToBinary(codes);
-            CryptoResult cresult = crypter.Encrypt(binaryCodes, crypter.Keys.First());
+            string binaryCodes = crypter.bytesToBinary(codes);
+            CryptoResult cresult = crypter.encrypt(binaryCodes, Key_TextBox.Text);
             EncryptedTextBox.Text = cresult.value;
         }
 
@@ -72,8 +71,8 @@ namespace InfoDefense.Pages
 
         private void DecryptButton_Click(object sender, RoutedEventArgs e)
         {
-            string bin = crypter.Decrypt(EncryptedTextBox.Text, crypter.Keys.First()).value;
-            DecryptedTextBox.Text = crypter.BinaryToString(bin);
+            string bin = crypter.decrypt(EncryptedTextBox.Text, Key_TextBox.Text).value;
+            DecryptedTextBox.Text = crypter.binaryToString(bin);
         }
     }
 }
